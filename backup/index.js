@@ -11,8 +11,8 @@ const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 
 app.use(cors());
-app.use(require("morgan"));
-// app.use(express.json());
+// app.use(require("morgan"));
+app.use(express.json());
 
 // Use routes
 app.use('/api/users', authRoutes);
@@ -22,6 +22,12 @@ app.use('/api/post',postRoutes);
 mongoose.connect('mongodb://localhost:27017/socialnetwork', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+})
+.then(()=>console.log('db connected'))
+.catch((error)=>console.log('error',error))
+
+app.get("/testapi", (req, res) => {
+  res.send("test api is working");
 });
 
 app.listen(5000, () => {
