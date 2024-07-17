@@ -9,14 +9,14 @@ const authMiddleware = require('../middleware/auth');
 // Create post
 router.post('/', authMiddleware, async (req, res) => {
   const { content } = req.body;
-  const newPost = new Post({ author: req.user.id, content });
+  const newPost = new Post({ user: req.user.id, content });
   await newPost.save();
   res.json(newPost);
 });
 
 // Get posts
 router.get('/', authMiddleware, async (req, res) => {
-  const posts = await Post.find().populate('author').exec();
+  const posts = await Post.find().populate('user').exec();
   res.json(posts);
 });
 
