@@ -2,8 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-
-
+const setupSwagger = require('./swaggerConfig');
 
 // Import route files
 const authRoutes = require('./routes/auth');
@@ -17,7 +16,9 @@ app.use(express.json());
 // Use routes
 app.use('/api/users', authRoutes);
 app.use('/api/auth/users', userRoutes);
-app.use('/api/post',postRoutes);
+app.use('/api/post', postRoutes);
+
+setupSwagger(app);
 
 mongoose.connect('mongodb://localhost:27017/socialnetwork', {
   useNewUrlParser: true,
