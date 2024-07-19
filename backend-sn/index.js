@@ -40,4 +40,4 @@ const server = app.listen(5000, () => {
 });
 
 
-module.export = { app, server }; // Export both app and server
+module.exports = { app, server }; // Export both app and server
