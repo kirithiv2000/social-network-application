@@ -19,18 +19,25 @@ app.use('/api/auth/users', userRoutes);
 app.use('/api/post', postRoutes);
 
 setupSwagger(app);
+var dbURI = 'mongodb://localhost:27017/socialnetwork' 
+if (process.env.NODE_ENV==="test"){
+  dbURI = 'mongodb://localhost:27017/socialnetwork_test' 
 
-mongoose.connect('mongodb://localhost:27017/socialnetwork', {
+}
+mongoose.connect(dbURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(()=>console.log('db connected'))
+.then(()=>console.log('db connected to ',dbURI))
 .catch((error)=>console.log('error',error))
 
 app.get("/testapi", (req, res) => {
   res.send("test api is working");
 });
 
-app.listen(5000, () => {
+const server = app.listen(5000, () => {
   console.log('Server is running on port 5000');
 });
+
+
+module.export = { app, server }; // Export both app and server
